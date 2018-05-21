@@ -1,0 +1,96 @@
+echo "Starting post-install.txt"
+
+# extra scripts to execute for additional installs
+EXTRAS=""
+EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/pibuttonpower/master/netinst/install_pibuttonpower.txt"
+EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/master/src/netinst/install_libPCA9685.txt"
+
+# jackd runs debconf to prompt the user for some bullshit.  turn that off
+echo ""
+echo "= Disabling debconf prompting"
+export DEBIAN_FRONTEND=noninteractive
+
+echo ""
+echo "= Localizing"
+# set the locale
+echo "en_US.UTF-8 UTF-8" > /rootfs/etc/locale.gen
+chroot /rootfs /usr/sbin/locale-gen
+
+# set the timezone
+echo "US/Mountain" > /rootfs/etc/timezone
+chroot /rootfs dpkg-reconfigure --frontend noninteractive tzdata
+
+# create and activate swap
+echo ""
+echo "= Creating swap"
+chroot /rootfs dd if=/dev/zero of=/swap bs=1M count=512 && mkswap /rootfs/swap
+echo "/swap none swap sw 0 0" >> /rootfs/etc/fstab
+
+
+echo ""
+echo "=== Adding packages ==="
+# better memory management
+echo ""
+echo "= Adding raspi-copies-and-fills"
+chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install raspi-copies-and-fills
+
+# improved rng
+echo ""
+echo "= Adding rng"
+chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install rng-tools
+echo "bcm2708-rng" >> /rootfs/etc/modules
+
+## alsa utilities
+#echo ""
+#echo "= Adding alsa-utils"
+#chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install alsa-utils
+#echo ""
+#echo "= Enabling audio in config.txt"
+#echo "dtparam=audio=on" >> /rootfs/boot/config.txt
+
+# install git
+echo ""
+echo "= Adding git-core"
+chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install git-core
+
+## install g++
+#echo ""
+#echo "= Adding g++"
+#chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install g++
+
+## install make
+#echo ""
+#echo "= Adding make"
+#chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install make
+
+## install sudo
+#echo ""
+#echo "= Adding sudo"
+#chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install sudo
+
+## alsa/asoundlib.h
+#echo ""
+#echo "= Adding libasound2-dev"
+#chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install libasound2-dev
+
+
+echo ""
+echo "= Adding extras"
+# download and execute the EXTRA scripts
+mkdir /rootfs/tmp/extras
+for EXTRA in $EXTRAS; do
+  chroot /rootfs /bin/sh << EOFextras
+    cd /tmp/extras
+    echo "/usr/bin/wget --no-check-certificate --content-disposition $EXTRA"
+    /usr/bin/wget --no-check-certificate --content-disposition "$EXTRA"
+EOFextras
+done
+
+sh
+
+for EXTRA in /rootfs/tmp/extras/*; do
+  chmod a+x $EXTRA
+  sh $EXTRA
+done
+
+echo "Finished!"
