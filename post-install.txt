@@ -2,7 +2,7 @@ echo "Starting post-install.txt"
 
 # extra scripts to execute for additional installs
 EXTRAS=""
-EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/pibuttonpower/master/netinst_pibuttonpower.sh"
+EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/pibuttonpower/master/netinst.sh"
 #EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/master/src/netinst/install_libPCA9685.txt"
 
 # jackd runs debconf to prompt the user for some bullshit.  turn that off
@@ -85,8 +85,6 @@ for EXTRA in $EXTRAS; do
     /usr/bin/wget --no-check-certificate --content-disposition "$EXTRA"
 EOFextras
 done
-
-sh
 
 for EXTRA in /rootfs/tmp/extras/*; do
   chmod a+x $EXTRA
