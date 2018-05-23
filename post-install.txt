@@ -101,9 +101,6 @@ for EXTRA in $EXTRAS; do
 EOFextras
 done
 
-for EXTRA in /rootfs/tmp/extras/*; do
-  chmod a+x $EXTRA
-  chroot /rootfs $EXTRA
-done
+chroot /rootfs find /tmp/extras -type f -exec sh {} \;
 
 echo "Finished!"
