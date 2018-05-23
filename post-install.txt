@@ -1,6 +1,18 @@
+#!/bin/sh
+
+## post-install.txt used with raspbian-ua-netinst
+# edit and copy to /boot folder of the netinst boot partition:
+#   $ vi post-install.txt (to customize extras)
+#   $ sudo mount /dev/mmcblk0p2 /mnt (or other mount point)
+#   $ cp post-install.txt /mnt/boot
+#   $ umount /dev/mmcblk0p2
+# then remove the sdcard, insert into an unpowered network-connected pi, power up, wait 30 minutes, play!
+
 echo "Starting post-install.txt"
 
 # extra scripts to execute for additional installs
+# they will be downloaded and executed via `chroot /rootfs netinst.sh` by netinst
+# add or remove extras as needed
 EXTRAS=""
 EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/pibuttonpower/master/netinst.sh"
 EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/master/netinst.sh"
