@@ -55,6 +55,14 @@ echo "= Adding rng"
 chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install rng-tools
 echo "bcm2708-rng" >> /rootfs/etc/modules
 
+# install git
+echo ""
+echo "= Adding git-core"
+chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install git-core
+
+# these audio packages will be moved to the netinst.sh of the libPCA9685 example "spectrum"
+# leaving here now for easy reference
+
 ## alsa utilities
 #echo ""
 #echo "= Adding alsa-utils"
@@ -62,26 +70,6 @@ echo "bcm2708-rng" >> /rootfs/etc/modules
 #echo ""
 #echo "= Enabling audio in config.txt"
 #echo "dtparam=audio=on" >> /rootfs/boot/config.txt
-
-# install git
-echo ""
-echo "= Adding git-core"
-chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install git-core
-
-## install g++
-#echo ""
-#echo "= Adding g++"
-#chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install g++
-
-## install make
-#echo ""
-#echo "= Adding make"
-#chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install make
-
-## install sudo
-#echo ""
-#echo "= Adding sudo"
-#chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install sudo
 
 ## alsa/asoundlib.h
 #echo ""
