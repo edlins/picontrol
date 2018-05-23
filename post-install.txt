@@ -2,7 +2,8 @@
 
 ## post-install.txt used with raspbian-ua-netinst
 # after writing a netinst image to an sdcard (/dev/mmcblk0 in this example),
-# edit and copy to /boot folder of the netinst boot partition:
+# download, edit, and copy to /boot folder of the netinst boot partition:
+#   $ wget https://github.com/edlins/picontrol-netinstall/master/post-install.txt
 #   $ vi post-install.txt (to customize EXTRAS)
 #   $ sudo mount /dev/mmcblk0p1 /mnt (or other mount point)
 #   $ cp post-install.txt /mnt/boot
