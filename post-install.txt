@@ -6,7 +6,7 @@
 #   $ vi post-install.txt (to customize EXTRAS)
 #   $ sudo mount /dev/mmcblk0p1 /mnt (or other mount point)
 #   $ cp post-install.txt /mnt/boot
-#   $ umount /dev/mmcblk0p1
+#   $ sudo umount /dev/mmcblk0p1
 # then remove the sdcard, insert into an unpowered network-connected pi, power up, wait 30 minutes, play!
 
 echo "Starting post-install.txt"
