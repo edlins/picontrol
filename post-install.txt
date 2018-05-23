@@ -2,8 +2,8 @@ echo "Starting post-install.txt"
 
 # extra scripts to execute for additional installs
 EXTRAS=""
-EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/pibuttonpower/master/netinst/install_pibuttonpower.txt"
-EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/master/src/netinst/install_libPCA9685.txt"
+EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/pibuttonpower/master/netinst_pibuttonpower.sh"
+#EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/master/src/netinst/install_libPCA9685.txt"
 
 # jackd runs debconf to prompt the user for some bullshit.  turn that off
 echo ""
@@ -90,7 +90,7 @@ sh
 
 for EXTRA in /rootfs/tmp/extras/*; do
   chmod a+x $EXTRA
-  sh $EXTRA
+  chroot /rootfs sh $EXTRA
 done
 
 echo "Finished!"
