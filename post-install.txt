@@ -88,7 +88,7 @@ done
 
 for EXTRA in /rootfs/tmp/extras/*; do
   chmod a+x $EXTRA
-  chroot /rootfs sh $EXTRA
+  chroot /rootfs $EXTRA
 done
 
 echo "Finished!"
