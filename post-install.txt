@@ -43,6 +43,17 @@ echo "= Creating swap"
 chroot /rootfs dd if=/dev/zero of=/swap bs=1M count=512 && mkswap /rootfs/swap
 echo "/swap none swap sw 0 0" >> /rootfs/etc/fstab
 
+echo ""
+echo "=== Checking sources.list"
+if ! grep raspbian.org /etc/apt/sources.list
+then
+  echo "= Adding raspbian.org to sources"
+  echo "deb http://archive.raspbian.org/raspbian stretch main contrib non-free" >> /etc/apt/sources.list
+  apt-get update
+else
+  echo "raspbian.org already in sources"
+fi
+
 
 echo ""
 echo "=== Adding packages ==="
