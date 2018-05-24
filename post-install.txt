@@ -45,11 +45,11 @@ echo "/swap none swap sw 0 0" >> /rootfs/etc/fstab
 
 echo ""
 echo "=== Checking sources.list"
-if ! grep raspbian.org /etc/apt/sources.list
+if ! grep raspbian.org /rootfs/etc/apt/sources.list
 then
   echo "= Adding raspbian.org to sources"
-  echo "deb http://archive.raspbian.org/raspbian stretch main contrib non-free" >> /etc/apt/sources.list
-  apt-get update
+  echo "deb http://archive.raspbian.org/raspbian stretch main contrib non-free" >> /rootfs/etc/apt/sources.list
+  chroot /rootfs apt-get update
 else
   echo "raspbian.org already in sources"
 fi
