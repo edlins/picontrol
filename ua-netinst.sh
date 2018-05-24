@@ -1,0 +1,34 @@
+#!/bin/sh -v
+
+# helper script to burn an image to /dev/mmcblk0 and add post-install.txt
+# call with a {raspberrypi,raspbian}-ua-netinst.*.img.xz compressed image file like:
+#   $ sudo ./ua-netinst.sh raspberrypi-ua-netinst-git-13a6782.img.xz
+# this will destroy all data on the SD card!
+
+umount /dev/mmcblk0p1
+umount /dev/mmcblk0p2
+
+# delete the first two partitions (if they exist)
+fdisk /dev/mmcblk0 << EOF1
+d
+2
+d
+1
+w
+EOF1
+xzcat -c $1 > /dev/mmcblk0
+
+# run fdisk again to force the new partition table into effect
+fdisk /dev/mmcblk0 << EOF2
+w
+EOF2
+mount /dev/mmcblk0p1 /mnt/tmp
+
+# raspberrypi-ua-netinst uses /raspberrypi-ua-netinst/config/post-install.txt
+# raspbian-ua-netinst uses /post-install.txt
+cd /mnt/tmp/raspberrypi-ua-netinst/config || cd /mnt/tmp
+
+# fetch the master branch post-install.txt
+wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/post-install.txt
+cd /
+umount /dev/mmcblk0p1
