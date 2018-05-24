@@ -6,8 +6,10 @@
 #   $ wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/post-install.txt
 #   $ vi post-install.txt (to customize EXTRAS)
 #   $ sudo mount /dev/mmcblk0p1 /mnt (or other mount point)
-#   $ cp post-install.txt /mnt
-#   $ mv /mnt/config-reinstall.txt /mnt/config.txt (if reinstalling)
+#   $ cp post-install.txt /mnt (for raspbian-ua-netinst) OR
+#   $ cp post-install.txt /mnt/raspberrypi-ua-netinst (for raspberrypi-ua-netinst)
+#   $ mv /mnt/config-reinstall.txt /mnt/config.txt (if reinstalling raspbian-ua-netinst) OR
+#   $ mv /mnt/raspberrypi-ua-netinst/reinstall/config.txt /mnt/config.txt (if reinstalling raspberrypi-ua-netinst)
 #   $ sudo umount /dev/mmcblk0p1
 # then remove the sdcard, insert into an unpowered network-connected pi, power up, wait 30 minutes, play!
 
