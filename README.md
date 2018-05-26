@@ -26,19 +26,16 @@ When using the `raspberrypi-ua-netinst` to install `stretch`, Wi-Fi is not enabl
 - `apt-get install firmware-misc-nonfree` (loads misc firmware, inc `/usr/lib/rt2870.bin`)
 - `apt-get install iw` (loads `iw` for managing wireless devices and connections)
 - `ifconfig wlan0 up` (brings the interface up)
-- `iw dev wlan0 connect <SSID> key 0:<passphrase>` (connects to an AP)
+- `iw dev wlan0 connect <SSID> key 0:<PSK>` (connects to an AP)
 
 ## To perform the install over Wi-Fi:
 - image your SD card with a `raspberrypi-ua-netinst` release
 - `mount /dev/mmcblk0p1 /mnt`
-- `vi /mnt/raspberrypi-ua-netinst/config/installer-config.txt` and add: `ifname=wlan0`(change network interface to wlan0)
-- `vi /mnt/raspberrypi-ua-netinst/config/wpa_supplicant`and add:
+- `vi /mnt/raspberrypi-ua-netinst/config/installer-config.txt` and add:
 ```
-network={
- ssid="YYYYY"
- psk="XXXXX"
- key_mgmt=WPA-PSK
-}
+ifname=wlan0
+wlan_ssid=<SSID>
+wlan_psk=<PSK>
 ```
-(add ssid and psk)
+(change network interface to wlan0 and setup connection info)
 - `umount /dev/mmcblk0p1`
