@@ -21,6 +21,7 @@ echo "Starting post-install.txt"
 EXTRAS=""
 EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/pibuttonpower/master/netinst.sh"
 EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/master/netinst.sh"
+EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/master/examples/olaclient/netinst.sh"
 
 # jackd runs debconf to prompt the user for some bullshit.  turn that off
 echo ""
