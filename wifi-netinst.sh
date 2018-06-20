@@ -33,3 +33,8 @@ cp -v /boot/wpa_supplicant.conf /etc/wpa_supplicant/
 echo ""
 echo "= Enabling wpa_supplicant"
 systemctl enable wpa_supplicant
+
+# fix bug # 838291
+echo ""
+echo "= Fixing wpa_supplicant"
+cp -v functions.sh /etc/wpa_supplicant
