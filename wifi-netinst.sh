@@ -4,7 +4,7 @@ echo ""
 echo "=== Adding rt2870 wifi ==="
 
 # install firmware-misc-nonfree
-echo "= Adding firmware-misc-nonfree
+echo "= Adding firmware-misc-nonfree"
 /usr/bin/apt-get -y --no-install-recommends install firmware-misc-nonfree
 
 # install wpasupplicant
