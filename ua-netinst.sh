@@ -1,9 +1,25 @@
-#!/bin/sh -v
+#!/bin/sh
 
 # helper script to burn an image to /dev/mmcblk0 and add post-install.txt
 # call with a {raspberrypi,raspbian}-ua-netinst.*.img.xz compressed image file like:
 #   $ sudo ./ua-netinst.sh raspberrypi-ua-netinst-git-13a6782.img.xz
 # this will destroy all data on the SD card!
+
+if [ $# -ne 1 -a $# -ne 3 ]; then
+  echo "usage:"
+  echo "  $0 image"
+  echo "  $0 image SSID PSK"
+  echo "where:"
+  echo "  image is a xz compressed ua-netinst sdcard image to write to /dev/mmcblk0"
+  echo "  SSID is the ssid of a Wi-Fi AP"
+  echo "  PSK is the psk of the given ssid"
+  exit 1
+fi
+
+if [ ! -e /dev/mmcblk0 ]; then
+  echo "/dev/mmcblk0 does not exist!"
+  exit 1
+fi
 
 umount /dev/mmcblk0p1
 umount /dev/mmcblk0p2
@@ -30,5 +46,18 @@ cd /mnt/tmp/raspberrypi-ua-netinst/config || cd /mnt/tmp
 
 # fetch the master branch post-install.txt
 wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/post-install.txt
+
+if [ $# -eq 3 ]; then
+  echo "preconfiguring wpa_supplicant.conf with wifi info"
+  mkdir /mnt/tmp/etc/wpa_supplicant
+  cat << EOF >> /mnt/tmp/etc/wpa_supplicant/wpa_supplicant.conf
+network={
+    ssid=$2
+    psk=$3
+}
+EOF
+fi
+
+# unmount
 cd /
 umount /dev/mmcblk0p1

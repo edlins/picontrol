@@ -21,7 +21,9 @@ echo "Starting post-install.txt"
 EXTRAS=""
 EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/pibuttonpower/master/netinst.sh"
 EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/master/netinst.sh"
-EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/master/examples/olaclient/netinst.sh"
+EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/develop/examples/olaclient/netinst.sh"
+EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/develop/examples/audio/netinst.sh"
+EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/picontrol-netinst/master/wifi-netinst.sh"
 
 # jackd runs debconf to prompt the user for some bullshit.  turn that off
 echo ""
@@ -29,13 +31,15 @@ echo "= Disabling debconf prompting"
 export DEBIAN_FRONTEND=noninteractive
 
 echo ""
-echo "= Localizing"
+echo "= Localizing to UTF-8"
 # set the locale
 echo "en_US.UTF-8 UTF-8" > /rootfs/etc/locale.gen
 chroot /rootfs /usr/sbin/locale-gen
 
-# set the timezone
-echo "US/Mountain" > /rootfs/etc/timezone
+# set the timezone.  note that how this is done has changed in stretch
+echo ""
+echo "= Setting timezone to US/Mountain"
+chroot /rootfs ln -fs /usr/share/zoneinfo/US/Mountain /etc/localtime
 chroot /rootfs dpkg-reconfigure --frontend noninteractive tzdata
 
 # create and activate swap
@@ -73,23 +77,6 @@ echo "bcm2708-rng" >> /rootfs/etc/modules
 echo ""
 echo "= Adding git-core"
 chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install git-core
-
-# these audio packages will be moved to the netinst.sh of the libPCA9685 example "spectrum"
-# leaving here now for easy reference
-
-## alsa utilities
-#echo ""
-#echo "= Adding alsa-utils"
-#chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install alsa-utils
-#echo ""
-#echo "= Enabling audio in config.txt"
-#echo "dtparam=audio=on" >> /rootfs/boot/config.txt
-
-## alsa/asoundlib.h
-#echo ""
-#echo "= Adding libasound2-dev"
-#chroot /rootfs /usr/bin/apt-get -y --no-install-recommends install libasound2-dev
-
 
 echo ""
 echo "= Adding extras"

@@ -12,6 +12,11 @@ Alternately, run the included ua-netinst.sh helper script with an image for a pa
 ```
 sudo ./ua-netinst.sh ./raspberrypi-ua-netinst-git-13a6782.img.xz
 ```
+Or, run the included ua-netinst.sh helper script with an image, an SSID, and a PSK
+```
+sudo ./ua-netinst.sh ./raspberrypi-ua-netinst-git-13a6782.img.xz MYSSID MYPSK
+```
+This form will create /etc/wpa_supplicant/wpa_supplicant.conf with the wifi info in anticipation of loading wpasupplicant.
 Then load the SD card in the unpowered RPi, connect it to ethernet, power it on, wait 30 minutes, and play!
 
 Once that's all done, you should have a fresh, updated Raspbian install on a DHCP address accessible via SSH or the console.
@@ -20,22 +25,8 @@ Simply ssh to the IP address and login with `root:raspbian` and change the root 
 The EXTRAS are all downloaded and installed in subfolders of `/usr/local/`.
 
 # Wi-Fi
-When using the `raspberrypi-ua-netinst` to install `stretch`, Wi-Fi is not enabled by default during or after install.
-
-## To enable Wi-Fi *after* install:
-- `apt-get install firmware-misc-nonfree` (loads misc firmware, inc `/usr/lib/rt2870.bin`)
-- `apt-get install iw` (loads `iw` for managing wireless devices and connections)
-- `ifconfig wlan0 up` (brings the interface up)
-- `iw dev wlan0 connect <SSID> key 0:<PSK>` (connects to an AP)
-
-## To perform the install over Wi-Fi:
-- image your SD card with a `raspberrypi-ua-netinst` release
-- `mount /dev/mmcblk0p1 /mnt`
-- `vi /mnt/raspberrypi-ua-netinst/config/installer-config.txt` and add:
+When using the `raspberrypi-ua-netinst` to install `stretch`, Wi-Fi is not enabled by default during or after install.  Furthermore, the firmware for rt2870 devices is non-free.  The following EXTRA is enabled by default to install and configure firmware-misc-nonfree and wpasupplicant:
 ```
-ifname=wlan0
-wlan_ssid=<SSID>
-wlan_psk=<PSK>
+EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/picontrol-netinst/master/wifi-netinst.sh"
 ```
-(change network interface to wlan0 and setup connection info)
-- `umount /dev/mmcblk0p1`
+If you do not want to install and configure an rt2870 wifi connection, simply comment out that line.hi from `post-install.txt`.
