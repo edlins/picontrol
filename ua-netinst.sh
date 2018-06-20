@@ -51,7 +51,7 @@ wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/post-inst
 
 if [ $# -eq 3 ]; then
   echo "preconfiguring wpa_supplicant.conf with wifi info"
-  cat << EOF >> /mnt/tmp/raspberrypi-ua-netinst/config/wpa_supplicant.conf
+  cat << EOF >> /mnt/tmp/wpa_supplicant.conf
 network={
     ssid="$2"
     psk="$3"
