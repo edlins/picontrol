@@ -12,9 +12,15 @@ echo "= Adding wpasupplicant"
 /usr/bin/apt-get -y --no-install-recommends install wpasupplicant
 
 # configure interfaces
+echo "= Configuring interface"
 cat >> /etc/network/interfaces << EOF
 auto wlan0
 allow-hotplug wlan0
 iface wlan0 inet dhcp
   wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 EOF
+
+# copy the wpa_supplicant.conf from boot
+echo "= Configuring WPA"
+ls -l /bootfs
+cp -v /bootfs/wpa_supplicant.conf /etc/wpa_supplicant/
