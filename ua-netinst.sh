@@ -24,7 +24,7 @@ fi
 umount /dev/mmcblk0p1
 umount /dev/mmcblk0p2
 
-# delete the first two partitions (if they exist)
+echo "delete the first two partitions (if they exist)"
 fdisk /dev/mmcblk0 << EOF1
 d
 2
@@ -32,9 +32,11 @@ d
 1
 w
 EOF1
+
+echo "writing $1 to /dev/mmcblk0"
 xzcat -c $1 > /dev/mmcblk0
 
-# run fdisk again to force the new partition table into effect
+echo "run fdisk again to force the new partition table into effect"
 fdisk /dev/mmcblk0 << EOF2
 w
 EOF2
@@ -44,16 +46,15 @@ mount /dev/mmcblk0p1 /mnt/tmp
 # raspbian-ua-netinst uses /post-install.txt
 cd /mnt/tmp/raspberrypi-ua-netinst/config || cd /mnt/tmp
 
-# fetch the master branch post-install.txt
+echo "fetch the master branch post-install.txt"
 wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/post-install.txt
 
 if [ $# -eq 3 ]; then
   echo "preconfiguring wpa_supplicant.conf with wifi info"
-  mkdir /mnt/tmp/etc/wpa_supplicant
-  cat << EOF >> /mnt/tmp/etc/wpa_supplicant/wpa_supplicant.conf
+  cat << EOF >> /mnt/tmp/raspberrypi-ua-netinst/config/wpa_supplicant.conf
 network={
-    ssid=$2
-    psk=$3
+    ssid="$2"
+    psk="$3"
 }
 EOF
 fi
