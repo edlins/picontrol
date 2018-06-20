@@ -58,6 +58,7 @@ network={
 }
 EOF
 fi
+sleep 1
 
 # unmount
 cd /
