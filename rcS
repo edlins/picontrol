@@ -488,6 +488,7 @@ dtoverlay_enable() {
 ###    INSTALLER    ###
 #######################
 
+if [ -z "${am_subscript}" ]; then
 # clear variables
 variables_reset
 
@@ -589,6 +590,7 @@ until [ -n "${bootdev}" ]; do
 	fi
 	if [ -z "${bootdev}" ]; then sleep 1s; fi
 done
+fi
 
 # Check if there's an alternative rcS file and excute it
 # instead of this file. Only do this if this isn't the

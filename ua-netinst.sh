@@ -42,6 +42,11 @@ w
 EOF2
 mount /dev/mmcblk0p1 /mnt/tmp
 
+echo "copy rt2870 firmware"
+mkdir /mnt/tmp/raspberrypi-ua-netinst/firmware
+cd /mnt/tmp/raspberrypi-ua-netinst/firmware
+wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/rt2870.bin
+
 # raspberrypi-ua-netinst uses /raspberrypi-ua-netinst/config/post-install.txt
 # raspbian-ua-netinst uses /post-install.txt
 cd /mnt/tmp/raspberrypi-ua-netinst/config || cd /mnt/tmp
@@ -54,7 +59,7 @@ cd /mnt/tmp/raspberrypi-ua-netinst && wget https://raw.githubusercontent.com/edl
 
 if [ $# -eq 3 ]; then
   echo "preconfiguring wpa_supplicant.conf with wifi info"
-  cat << EOF >> /mnt/tmp/wpa_supplicant.conf
+  cat << EOF >> /mnt/tmp/raspberrypi-ua-netinst/config/wpa_supplicant.conf
 network={
     ssid="$2"
     psk="$3"
