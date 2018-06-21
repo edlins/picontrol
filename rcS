@@ -882,6 +882,9 @@ do
   dpkg -i "${file}"
 done
 
+# debugging shell
+sh
+
 # depmod needs to update modules.dep before using modprobe
 depmod -a
 find /sys/ -name modalias -print0 | xargs -0 sort -u | xargs modprobe -abq

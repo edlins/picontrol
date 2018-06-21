@@ -45,7 +45,7 @@ mount /dev/mmcblk0p1 /mnt/tmp
 echo "dl nonfree firmware package"
 mkdir /mnt/tmp/raspberrypi-ua-netinst/packages
 cd /mnt/tmp/raspberrypi-ua-netinst/packages
-wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/firmware-misc-nonfree_1%3a20161130-3+rpt3_all.deb
+wget https://github.com/edlins/picontrol-netinst/raw/master/firmware-misc-nonfree_1%253a20161130-3%2Brpt3_all.deb
 
 # raspberrypi-ua-netinst uses /raspberrypi-ua-netinst/config/post-install.txt
 # raspbian-ua-netinst uses /post-install.txt
