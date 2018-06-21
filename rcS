@@ -875,8 +875,12 @@ fi
 echo "  online_config = ${online_config}"
 echo
 
-# copy additional firmware needed by modules
-cp -v "${tmp_bootfs}"/raspberrypi-ua-netinst/firmware/* /lib/firmware
+# install provided packages
+for file in "${tmp_bootfs}"/raspberrypi-ua-netinst/firmware/*
+do
+  echo "installing ${file}"
+  dpkg -i "${file}"
+done
 
 # depmod needs to update modules.dep before using modprobe
 depmod -a

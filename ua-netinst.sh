@@ -42,10 +42,10 @@ w
 EOF2
 mount /dev/mmcblk0p1 /mnt/tmp
 
-echo "copy nonfree firmware package"
+echo "dl nonfree firmware package"
 mkdir /mnt/tmp/raspberrypi-ua-netinst/packages
 cd /mnt/tmp/raspberrypi-ua-netinst/packages
-wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/rt2870.bin
+wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/firmware-misc-nonfree_1%3a20161130-3+rpt3_all.deb
 
 # raspberrypi-ua-netinst uses /raspberrypi-ua-netinst/config/post-install.txt
 # raspbian-ua-netinst uses /post-install.txt
