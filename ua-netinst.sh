@@ -42,9 +42,9 @@ w
 EOF2
 mount /dev/mmcblk0p1 /mnt/tmp
 
-echo "copy rt2870 firmware"
-mkdir /mnt/tmp/raspberrypi-ua-netinst/firmware
-cd /mnt/tmp/raspberrypi-ua-netinst/firmware
+echo "copy nonfree firmware package"
+mkdir /mnt/tmp/raspberrypi-ua-netinst/packages
+cd /mnt/tmp/raspberrypi-ua-netinst/packages
 wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/rt2870.bin
 
 # raspberrypi-ua-netinst uses /raspberrypi-ua-netinst/config/post-install.txt
