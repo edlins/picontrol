@@ -32,20 +32,18 @@ d
 1
 w
 EOF1
+sleep 1
 
 echo "writing $1 to /dev/mmcblk0"
 xzcat -c $1 > /dev/mmcblk0
+sleep 1
 
 echo "run fdisk again to force the new partition table into effect"
 fdisk /dev/mmcblk0 << EOF2
 w
 EOF2
+sleep 1
 mount /dev/mmcblk0p1 /mnt/tmp
-
-#echo "dl nonfree firmware package"
-#mkdir /mnt/tmp/raspberrypi-ua-netinst/packages
-#cd /mnt/tmp/raspberrypi-ua-netinst/packages
-#wget https://github.com/edlins/picontrol-netinst/raw/master/firmware-misc-nonfree_1%253a20161130-3%2Brpt3_all.deb
 
 # raspberrypi-ua-netinst uses /raspberrypi-ua-netinst/config/post-install.txt
 # raspbian-ua-netinst uses /post-install.txt
@@ -53,9 +51,6 @@ cd /mnt/tmp/raspberrypi-ua-netinst/config || cd /mnt/tmp
 
 echo "fetch the master branch post-install.txt"
 wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/post-install.txt
-
-#echo "fetch the master branch rcS (only works for raspberrypi-ua-netinst)"
-#cd /mnt/tmp/raspberrypi-ua-netinst && wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/rcS
 
 if [ $# -eq 3 ]; then
   echo "preconfiguring wpa_supplicant.conf with wifi info"
