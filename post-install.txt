@@ -20,7 +20,7 @@ echo "Starting post-install.txt"
 # add or remove EXTRAS as needed
 EXTRAS=""
 EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/pibuttonpower/master/netinst.sh"
-EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/master/netinst.sh"
+EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/develop/netinst.sh"
 EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/develop/examples/olaclient/netinst.sh"
 EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/libPCA9685/develop/examples/audio/netinst.sh"
 EXTRAS="$EXTRAS http://raw.githubusercontent.com/edlins/picontrol-netinst/master/wifi-netinst.sh"
