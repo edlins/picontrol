@@ -42,10 +42,10 @@ w
 EOF2
 mount /dev/mmcblk0p1 /mnt/tmp
 
-echo "dl nonfree firmware package"
-mkdir /mnt/tmp/raspberrypi-ua-netinst/packages
-cd /mnt/tmp/raspberrypi-ua-netinst/packages
-wget https://github.com/edlins/picontrol-netinst/raw/master/firmware-misc-nonfree_1%253a20161130-3%2Brpt3_all.deb
+#echo "dl nonfree firmware package"
+#mkdir /mnt/tmp/raspberrypi-ua-netinst/packages
+#cd /mnt/tmp/raspberrypi-ua-netinst/packages
+#wget https://github.com/edlins/picontrol-netinst/raw/master/firmware-misc-nonfree_1%253a20161130-3%2Brpt3_all.deb
 
 # raspberrypi-ua-netinst uses /raspberrypi-ua-netinst/config/post-install.txt
 # raspbian-ua-netinst uses /post-install.txt
@@ -55,7 +55,7 @@ echo "fetch the master branch post-install.txt"
 wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/post-install.txt
 
 echo "fetch the master branch rcS (only works for raspberrypi-ua-netinst)"
-cd /mnt/tmp/raspberrypi-ua-netinst && wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/rcS
+#cd /mnt/tmp/raspberrypi-ua-netinst && wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/rcS
 
 if [ $# -eq 3 ]; then
   echo "preconfiguring wpa_supplicant.conf with wifi info"
