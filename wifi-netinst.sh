@@ -26,8 +26,8 @@ EOF
 # copy the wpa_supplicant.conf from boot
 echo ""
 echo "= Configuring WPA"
-ls -l /boot
-cp -v /boot/wpa_supplicant.conf /etc/wpa_supplicant/
+ls -l /boot/raspberrypi-ua-netinst/config
+cp -v /boot/raspberrypi-ua-netinst/config/wpa_supplicant.conf /etc/wpa_supplicant/
 
 # enable wpa_supplicant
 echo ""
