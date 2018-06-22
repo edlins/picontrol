@@ -54,7 +54,7 @@ cd /mnt/tmp/raspberrypi-ua-netinst/config || cd /mnt/tmp
 echo "fetch the master branch post-install.txt"
 wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/post-install.txt
 
-echo "fetch the master branch rcS (only works for raspberrypi-ua-netinst)"
+#echo "fetch the master branch rcS (only works for raspberrypi-ua-netinst)"
 #cd /mnt/tmp/raspberrypi-ua-netinst && wget https://raw.githubusercontent.com/edlins/picontrol-netinst/master/rcS
 
 if [ $# -eq 3 ]; then
